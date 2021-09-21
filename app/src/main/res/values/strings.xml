@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ContactBook</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="image">image</string>
+    <string name="welcome_to_contact_book">Welcome To Contact book</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+</resources>
