@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 
 interface AuthListener {
     fun onStarted()
-    fun onSuccess(liveData: LiveData<String>)
+    fun onSuccess()
     fun onFailure(msg:String)
     fun isConnection():Boolean
 }
