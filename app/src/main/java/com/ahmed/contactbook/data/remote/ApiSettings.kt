@@ -1,5 +1,6 @@
 package com.ahmed.contactbook.data.remote
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,6 +16,7 @@ object ApiSettings {
         Retrofit.Builder()
             .baseUrl("https://phonebook-be.herokuapp.com/api/")
             .client(client)
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

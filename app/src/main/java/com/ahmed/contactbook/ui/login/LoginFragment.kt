@@ -1,53 +1,55 @@
 package com.ahmed.contactbook.ui.login
 
-import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.ahmed.contactbook.BaseFragment
 import com.ahmed.contactbook.R
 import com.ahmed.contactbook.databinding.LoginFragmentBinding
 import com.ahmed.contactbook.utils.ChechInternetConnection
 
-class LoginFragment : Fragment(R.layout.login_fragment), AuthListener {
-    lateinit var binding: LoginFragmentBinding
-    lateinit var viewModel: LoginViewModel
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = LoginFragmentBinding.bind(view)
-        viewModel = ViewModelProvider(requireActivity()).get(LoginViewModel::class.java)
+class LoginFragment : BaseFragment<LoginFragmentBinding>(), AuthListener {
+    private lateinit var viewModel: LoginViewModel
+    private lateinit var navController: NavController
 
+    override fun setupOnViewCreated(view: View) {
+        viewModel = ViewModelProvider(requireActivity()).get(LoginViewModel::class.java)
+        navController = Navigation.findNavController(view)
         viewModel.authListener = this
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
             viewModel.sendLoginRequest(email, password)
         }
-
+        binding.tvRegister.setOnClickListener { navController.navigate(R.id.action_loginFragment_to_registerFragment) }
 
     }
 
     override fun onStarted() {
-        Toast.makeText(requireContext(), "started", Toast.LENGTH_SHORT).show()
-        binding.progressBar.visibility = View.VISIBLE
-
+        showProgressDialog(requireContext())
     }
 
-    override fun onSuccess(liveData: LiveData<String>) {
-        liveData.observe(requireActivity(), { result ->
-            Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
-        })
-        binding.progressBar.visibility = View.GONE
+    override fun onSuccess() {
+        hideProgressDialog()
+        navController.navigate(R.id.action_loginFragment_to_homeFragment)
     }
 
     override fun onFailure(msg: String) {
+        hideProgressDialog()
         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-        binding.progressBar.visibility = View.GONE
+
     }
 
     override fun isConnection(): Boolean {
         return ChechInternetConnection(requireContext()).isConnection()
     }
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> LoginFragmentBinding
+        get() = LoginFragmentBinding::inflate
+
 
 }
