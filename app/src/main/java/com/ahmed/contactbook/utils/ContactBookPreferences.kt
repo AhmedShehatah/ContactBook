@@ -35,7 +35,7 @@ class ContactBookPreferences {
         var result: String? = ""
         openConnection()
         if (contactBookPreferences?.contains(key) == true) {
-            result = contactBookPreferences?.getString(key,"")
+            result = contactBookPreferences?.getString(key, "")
 
         }
         closeConnection()
@@ -57,6 +57,13 @@ class ContactBookPreferences {
         }
         closeConnection()
         return result
+    }
+
+    fun removeString(key: String) {
+        openConnection()
+        editor!!.remove(key)
+        editor!!.commit()
+        closeConnection()
     }
 
     companion object {

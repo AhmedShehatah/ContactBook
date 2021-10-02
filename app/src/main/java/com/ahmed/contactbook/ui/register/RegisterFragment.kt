@@ -44,12 +44,16 @@ class RegisterFragment : BaseFragment<RegisterFragmentBinding>(), AuthListener {
         ).get(RegisterViewModel::class.java)
         viewModel.authListener = this
         navController = Navigation.findNavController(view)
-        binding.btnLogin.setOnClickListener {
-            val name = binding.etName.text.toString()
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
+        binding.btnRegister.setOnClickListener {
+            val name = binding.etName.text.toString().trim()
+            val email = binding.etEmail.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
             viewModel.sendRegisterRequest(name, email, password)
 
+        }
+
+        binding.btnLogin.setOnClickListener {
+            navController.navigate(R.id.action_registerFragment_to_loginFragment)
         }
     }
 

@@ -15,38 +15,33 @@ class LoginViewModel : ViewModel() {
     var authListener: AuthListener? = null
 
     fun sendLoginRequest(email: String, password: String) {
+        authListener!!.onStarted()
         if (authListener!!.isConnection()) {
 
-            if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 authListener!!.onFailure("Please Enter Valid Email Address")
                 return
             }
 
-            if (password.isEmpty() || password.length < 6) {
+            if (password.length < 6) {
                 authListener!!.onFailure("password must be more than 6 characters")
                 return
             }
 
 
-            authListener!!.onStarted()
-
             try {
+
                 val user = com.ahmed.contactbook.data.model.UserData(email, password)
                 viewModelScope.launch {
 
                     val request = Repo().loginUser(user)
                     if (request.isSuccessful) {
-                        val token = request.body()!!.token
 
+                        val token = request.body()!!.token
                         ContactBookPreferences().setString(SharedKeyEnum.TOKEN.toString(), token)
-                        ContactBookPreferences().setBoolean(
-                            SharedKeyEnum.FIRST_LOGIN.toString(),
-                            false
-                        )
                         authListener!!.onSuccess()
-                    } else {
-                        authListener?.onFailure("email or password isn't correct")
-                    }
+                    } else authListener!!.onFailure("email or password isn't correct")
+
                 }
 
 

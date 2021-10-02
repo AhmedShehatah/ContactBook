@@ -11,6 +11,7 @@ import com.ahmed.contactbook.BaseFragment
 import com.ahmed.contactbook.R
 import com.ahmed.contactbook.databinding.LoginFragmentBinding
 import com.ahmed.contactbook.utils.ChechInternetConnection
+import com.ahmed.contactbook.utils.toast
 
 class LoginFragment : BaseFragment<LoginFragmentBinding>(), AuthListener {
     private lateinit var viewModel: LoginViewModel
@@ -20,12 +21,13 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(), AuthListener {
         viewModel = ViewModelProvider(requireActivity()).get(LoginViewModel::class.java)
         navController = Navigation.findNavController(view)
         viewModel.authListener = this
+
         binding.btnLogin.setOnClickListener {
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
+            val email = binding.etEmail.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
             viewModel.sendLoginRequest(email, password)
         }
-        binding.tvRegister.setOnClickListener { navController.navigate(R.id.action_loginFragment_to_registerFragment) }
+        binding.btnRegister.setOnClickListener { navController.navigate(R.id.action_loginFragment_to_registerFragment) }
 
     }
 
@@ -39,9 +41,8 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(), AuthListener {
     }
 
     override fun onFailure(msg: String) {
+        requireContext().toast(msg)
         hideProgressDialog()
-        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-
     }
 
     override fun isConnection(): Boolean {

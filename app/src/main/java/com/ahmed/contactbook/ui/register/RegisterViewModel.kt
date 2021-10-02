@@ -15,22 +15,23 @@ class RegisterViewModel : ViewModel() {
     var authListener: AuthListener? = null
 
     fun sendRegisterRequest(name: String, email: String, password: String) {
+
+        authListener!!.onStarted()
+
         if (authListener!!.isConnection()) {
             if (name.isEmpty()) {
                 authListener!!.onFailure("Please Enter Your Name")
                 return
             }
-            if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 authListener!!.onFailure("Please Enter Valid Email Address")
                 return
             }
 
-            if (password.isEmpty() ||password.length < 6) {
+            if (password.length < 6) {
                 authListener!!.onFailure("password must be more than 6 characters")
                 return
             }
-
-            authListener!!.onStarted()
 
             try {
                 val userRegister = UserRegister(name, email, password)
@@ -45,7 +46,7 @@ class RegisterViewModel : ViewModel() {
                             true
                         )
                         authListener!!.onSuccess()
-                    } else authListener!!.onFailure("Failed To Register")
+                    } else authListener!!.onFailure("Email Already in Use")
 
                 }
 
@@ -56,8 +57,9 @@ class RegisterViewModel : ViewModel() {
             }
 
 
-        } else
+        } else {
             authListener!!.onFailure("No Internet Connection")
-
+            return
+        }
     }
 }
