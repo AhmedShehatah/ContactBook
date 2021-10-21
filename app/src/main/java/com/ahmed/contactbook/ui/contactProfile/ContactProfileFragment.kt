@@ -4,30 +4,35 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Spinner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahmed.contactbook.BaseFragment
 import com.ahmed.contactbook.R
+import com.ahmed.contactbook.data.model.GetContact
 import com.ahmed.contactbook.data.model.Phone
 import com.ahmed.contactbook.data.model.UpdateContact
 import com.ahmed.contactbook.databinding.ContactProfileFragmentBinding
-import com.ahmed.contactbook.ui.addContact.AddListener
 import com.ahmed.contactbook.utils.ChechInternetConnection
 import com.ahmed.contactbook.utils.ContactBookPreferences
 import com.ahmed.contactbook.utils.SharedKeyEnum
 import com.ahmed.contactbook.utils.toast
 
-class ContactProfileFragment : BaseFragment<ContactProfileFragmentBinding>(), AddListener {
+class ContactProfileFragment : BaseFragment<ContactProfileFragmentBinding>(), ProfileListener {
     private lateinit var navController: NavController
     private lateinit var viewModel: ContactProfileViewModel
     private lateinit var normalBackground: Drawable
-    private var enabled = false
+    var enabled = false
+    private lateinit var contact: GetContact
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> ContactProfileFragmentBinding
         get() = ContactProfileFragmentBinding::inflate
 
     override fun setupOnViewCreated(view: View) {
         viewModel = ViewModelProvider(this).get(ContactProfileViewModel::class.java)
+        contact = arguments?.getParcelable("contact")!!
         viewModel.addListener = this
         navController = Navigation.findNavController(view)
         normalBackground = binding.etEmail.background
@@ -43,14 +48,16 @@ class ContactProfileFragment : BaseFragment<ContactProfileFragmentBinding>(), Ad
     }
 
     private fun setData() {
-        binding.etName.setText(arguments?.getString("name"))
-        binding.etPhone.setText(arguments?.getString("phone"))
-        binding.etNotes.setText(arguments?.getString("notes"))
-        binding.etEmail.setText(arguments?.getString("email"))
+
+        binding.recyclerPhones.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerPhones.adapter =
+            PhonesAdapter(binding, contact.phones)
+        binding.etName.setText(contact.name)
+        binding.etNotes.setText(if (contact.notes.isNullOrEmpty()) "Notes" else contact.notes)
+        binding.etEmail.setText(if (contact.email.isNullOrEmpty()) "Email" else contact.email)
         binding.apply {
             etName.background = null
             etEmail.background = null
-            etPhone.background = null
             etNotes.background = null
 
         }
@@ -63,12 +70,19 @@ class ContactProfileFragment : BaseFragment<ContactProfileFragmentBinding>(), Ad
             binding.apply {
                 etName.background = normalBackground
                 etEmail.background = normalBackground
-                etPhone.background = normalBackground
                 etNotes.background = normalBackground
                 etName.isEnabled = true
-                etPhone.isEnabled = true
                 etEmail.isEnabled = true
                 etNotes.isEnabled = true
+
+                for(i in contact.phones.indices){
+                    val view = binding.recyclerPhones.getChildAt(i)
+                    val phoneNumber = view.findViewById<EditText>(R.id.text_phone_number)
+                    val phoneType = view.findViewById<Spinner>(R.id.text_phone_type)
+                    phoneNumber.isEnabled = true
+                    phoneType.isEnabled = true
+
+                }
 
             }
 
@@ -77,12 +91,18 @@ class ContactProfileFragment : BaseFragment<ContactProfileFragmentBinding>(), Ad
             binding.apply {
                 etName.background = null
                 etEmail.background = null
-                etPhone.background = null
                 etNotes.background = null
                 etName.isEnabled = false
-                etPhone.isEnabled = false
                 etEmail.isEnabled = false
                 etNotes.isEnabled = false
+                for(i in contact.phones.indices){
+                    val view = binding.recyclerPhones.getChildAt(i)
+                    val phoneNumber = view.findViewById<EditText>(R.id.text_phone_number)
+                    val phoneType = view.findViewById<Spinner>(R.id.text_phone_type)
+                    phoneNumber.isEnabled = false
+                    phoneType.isEnabled = false
+
+                }
 
             }
         }
@@ -90,28 +110,34 @@ class ContactProfileFragment : BaseFragment<ContactProfileFragmentBinding>(), Ad
 
 
     private fun updateUser() {
-
         val user = UpdateContact(
-            if (binding.etEmail.text.toString() == arguments?.getString("email")) null else binding.etEmail.text.toString(),
-            if (binding.etName.text.toString() == arguments?.getString("name")) null else binding.etName.text.toString(),
-            if (binding.etNotes.text.toString() == arguments?.getString("notes")) null else binding.etNotes.text.toString(),
+            if (binding.etEmail.text.toString() == contact.email) null else binding.etEmail.text.toString(),
+            if (binding.etName.text.toString() == contact.name) null else binding.etName.text.toString(),
+            if (binding.etNotes.text.toString() == contact.notes) null else binding.etNotes.text.toString(),
 
             )
         val token = "Bearer " + ContactBookPreferences().getString(SharedKeyEnum.TOKEN.toString())
-        arguments?.getString("position")?.let { viewModel.updateUser(token, it, user) }
+        contact.id.let { viewModel.updateUser(token, it.toString(), user) }
 
 
     }
 
     private fun updatePhone() {
         val token = "Bearer " + ContactBookPreferences().getString(SharedKeyEnum.TOKEN.toString())
-        arguments?.getString("phone_id")
-            ?.let {
-                if (binding.etPhone.text.toString() != arguments?.getString("phone")) {
-                    val phone = Phone(1, binding.etPhone.text.toString())
-                    viewModel.updatePhone(token, it, phone)
-                }
-            }
+
+        for (i in contact.phones.indices) {
+            val view = binding.recyclerPhones.getChildAt(i)
+            val phoneNumber = view.findViewById<EditText>(R.id.text_phone_number)
+            val phoneType = view.findViewById<Spinner>(R.id.text_phone_type)
+
+            val phone = Phone(
+                phoneType.selectedItemPosition + 1,
+                phoneNumber.text.toString()
+            )
+            viewModel.updatePhone(token, contact.phones[i].id.toString(), phone)
+        }
+
+
     }
 
     override fun onStarted() {

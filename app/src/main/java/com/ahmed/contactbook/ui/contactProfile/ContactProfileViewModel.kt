@@ -5,11 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.ahmed.contactbook.data.model.Phone
 import com.ahmed.contactbook.data.model.UpdateContact
 import com.ahmed.contactbook.data.repo.Repo
-import com.ahmed.contactbook.ui.addContact.AddListener
 import kotlinx.coroutines.launch
 
 class ContactProfileViewModel : ViewModel() {
-    var addListener: AddListener? = null
+    var addListener: ProfileListener? = null
     fun updateUser(token: String, id: String, user: UpdateContact) {
         addListener!!.onStarted()
         if (addListener!!.isConnection()) {

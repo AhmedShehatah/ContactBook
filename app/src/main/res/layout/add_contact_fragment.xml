@@ -33,37 +33,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
+            android:gravity="end"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/etPhoneNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="@string/phone_number"
-                android:drawableStart="@drawable/phone"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="@string/phone_number"
-                android:inputType="phone"
-                tools:layout_editor_absoluteX="18dp"
-                tools:layout_editor_absoluteY="17dp" />
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:entries="@array/contact_type"
-                android:visibility="gone" />
-
             <ImageView
+                android:id="@+id/image_addPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/phone_number"
-                android:src="@android:drawable/ic_input_add"
-                android:visibility="gone" />
+                android:layout_gravity="end"
+                android:src="@drawable/ic_add_gray" />
+
+            <ImageView
+                android:id="@+id/image_removePhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:paddingEnd="@dimen/_10dp"
+                android:src="@drawable/ic_remove_gray" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_phones_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
         </LinearLayout>
 
         <EditText

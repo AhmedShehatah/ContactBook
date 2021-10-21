@@ -49,7 +49,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), HomeListener {
             viewModel.getContact()
             viewModel.contacts.observe(this@HomeFragment, {
                 if (it.isNotEmpty()) {
-                    binding.rvAllContacts.adapter = AllContactAdapter(it, viewModel)
+                    binding.rvAllContacts.adapter =
+                        AllContactAdapter(it as java.util.ArrayList<GetContact>, viewModel)
                     binding.tvNoThing.visibility = View.GONE
                 } else binding.tvNoThing.visibility = View.VISIBLE
             })
@@ -67,24 +68,12 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), HomeListener {
 
     override fun onDeleted() {
         hideProgressDialog()
-        viewModel.getContact()
-        lifecycleScope.launch {
-            viewModel.contacts.observe(this@HomeFragment, {
-                if (it.isNotEmpty()) {
-
-                    binding.tvNoThing.visibility = View.GONE
-                } else {
-                    binding.tvNoThing.visibility = View.VISIBLE
-
-                }
-                binding.rvAllContacts.adapter = AllContactAdapter(it, viewModel)
-            })
-        }
     }
 
     override fun onFailure(msg: String) {
         hideProgressDialog()
         requireContext().toast("Can't Load Contact Try Again")
+
 
     }
 
@@ -122,7 +111,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), HomeListener {
 
 
             binding.rvAllContacts.adapter =
-                AllContactAdapter(itemList as List<GetContact>, viewModel)
+                AllContactAdapter(itemList, viewModel)
         })
     }
 

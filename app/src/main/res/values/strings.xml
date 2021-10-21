@@ -17,6 +17,10 @@
     <string name="edit">Edit</string>
     <string name="get_started">Get Started</string>
     <string name="nothing_to_show">Nothing To Show</string>
+    <string name="mobile">moblie</string>
+    <string name="home">home</string>
+    <string name="work">work</string>
+    <string name="others">Others</string>
 
 
     <string-array name="contact_type">

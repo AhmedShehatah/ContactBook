@@ -138,5 +138,8 @@
             android:name="notes"
             android:defaultValue="Notes"
             app:argType="string" />
+        <argument
+            android:name="contact"
+            app:argType="com.ahmed.contactbook.data.model.GetContact" />
     </fragment>
 </navigation>

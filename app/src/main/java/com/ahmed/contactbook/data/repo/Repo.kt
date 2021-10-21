@@ -29,6 +29,10 @@ class Repo {
     suspend fun deleteContact(token: String, id: String): Response<ResponseBody> =
         ApiSettings.apiInstance.deleteContact(token, id)
 
-    suspend fun updatePhone(token: String, id: String,phone:Phone): Response<ResponseBody> =
-        ApiSettings.apiInstance.updatePhone(token, id,phone)
+    suspend fun updatePhone(
+        token: String,
+        id: String,
+        phone: Phone
+    ): Response<ResponseBody> =
+        ApiSettings.apiInstance.updatePhone(token, id, phone)
 }

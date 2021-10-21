@@ -22,13 +22,12 @@
         android:id="@+id/etName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
         android:enabled="false"
         android:inputType="textPersonName"
         android:text="@string/name"
         android:textColor="@drawable/edit_text_selector"
         android:textSize="33sp"
-        app:layout_constraintBottom_toTopOf="@+id/etPhone"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_phones"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
@@ -43,11 +42,10 @@
         app:layout_constraintEnd_toStartOf="@+id/etName"
         app:layout_constraintTop_toTopOf="@+id/etName" />
 
-    <EditText
-        android:id="@+id/etPhone"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_phones"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginBottom="32dp"
         android:drawablePadding="@dimen/_20dp"
         android:enabled="false"
@@ -56,8 +54,8 @@
         android:text="@string/phone_number"
         android:textColor="@drawable/edit_text_selector"
         android:textSize="26sp"
-        app:drawableStartCompat="@drawable/phone"
         app:layout_constraintBottom_toTopOf="@+id/etEmail"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -73,9 +71,9 @@
         android:textSize="20sp"
         app:drawableLeftCompat="@drawable/mail"
         app:layout_constraintBottom_toTopOf="@+id/etNotes"
-        app:layout_constraintEnd_toEndOf="@+id/etPhone"
+        app:layout_constraintEnd_toEndOf="@+id/recycler_phones"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/etPhone" />
+        app:layout_constraintStart_toStartOf="@+id/recycler_phones" />
 
     <EditText
         android:id="@+id/etNotes"
@@ -101,6 +99,7 @@
         android:src="@drawable/edit"
         app:backgroundTint="#E700C3"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

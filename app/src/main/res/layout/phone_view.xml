@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:gravity="bottom"
+    android:weightSum="10"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:autofillHints="@string/phone_number"
         android:ems="10"
+        android:layout_weight="5"
         android:hint="@string/phone_number"
         android:inputType="phone"
         tools:layout_editor_absoluteX="18dp"
@@ -22,12 +24,8 @@
         android:layout_width="0dp"
         android:layout_gravity="bottom"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="5"
         android:entries="@array/contact_type" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/phone_number"
-        android:src="@android:drawable/ic_input_add" />
+
 </LinearLayout>

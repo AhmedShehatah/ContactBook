@@ -14,12 +14,16 @@ import com.ahmed.contactbook.utils.ContactBookPreferences
 import com.ahmed.contactbook.utils.SharedKeyEnum
 import java.util.*
 
-class AllContactAdapter(private val list: List<GetContact>, private val viewModel: HomeViewModel) :
+class AllContactAdapter(
+    private val list: ArrayList<GetContact>,
+    private val viewModel: HomeViewModel
+) :
     RecyclerView.Adapter<AllContactAdapter.ViewHolder>() {
     inner class ViewHolder(binding: ContactsListBinding) : RecyclerView.ViewHolder(binding.root) {
         val tvName = binding.tvName
         val tvChar = binding.tvChar
         val layout = binding.layout
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,14 +40,7 @@ class AllContactAdapter(private val list: List<GetContact>, private val viewMode
         val itemList = list[position]
         holder.tvName.text = itemList.name
         holder.tvChar.text = "${itemList.name[0]}${itemList.name[1]}".toUpperCase(Locale.ROOT)
-        val bundle = bundleOf(
-            "name" to itemList.name,
-            "email" to if (!itemList.email.isNullOrEmpty()) itemList.email else "email",
-            "notes" to if (!itemList.notes.isNullOrEmpty()) itemList.notes.toString() else "Notes",
-            "phone" to itemList.phones[0].value,
-            "phone_id" to itemList.phones[0].id.toString(),
-            "position" to itemList.id.toString()
-        )
+        val bundle = bundleOf("contact" to itemList)
 
         holder.layout.setOnClickListener {
 
@@ -59,6 +56,9 @@ class AllContactAdapter(private val list: List<GetContact>, private val viewMode
             builder.setMessage("Do you want to Delete this contact?")
                 .setPositiveButton("Yes") { _, _ ->
                     viewModel.deleteContact(itemList.id.toString())
+                    list.removeAt(position)
+                    notifyItemRemoved(position)
+                    notifyItemRangeRemoved(position, list.size)
 
                 }.setNegativeButton("No") { _, _ -> }
             builder.show()

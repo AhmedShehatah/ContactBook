@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class AddContactViewModel : ViewModel() {
     var addListener: AddListener? = null
-    fun validateData(name: String, phone: String, note: String?, email: String?) {
+    fun validateData(name: String, phones: List<Phone>, note: String?, email: String?) {
 
         addListener!!.onStarted()
         if (addListener!!.isConnection()) {
@@ -20,9 +20,12 @@ class AddContactViewModel : ViewModel() {
                 addListener!!.onFailure("Enter Name")
                 return
             }
-            if (!Patterns.PHONE.matcher(phone).matches()) {
-                addListener!!.onFailure("Enter Valid Phone Number")
-                return
+            for (phone in phones) {
+                if (!Patterns.PHONE.matcher(phone.value).matches()) {
+
+                    addListener!!.onFailure("Enter Valid Phone Number")
+                    return
+                }
             }
             if (email!!.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
 
@@ -30,15 +33,12 @@ class AddContactViewModel : ViewModel() {
                 return
             }
 
-            val phones = ArrayList<Phone>()
-            phones.add(
-                Phone(1, phone)
-            )
-
 
             val contact = SaveContact(
-                if (email.isNullOrEmpty()) null else email, name,
-                if(note.isNullOrEmpty())null else note, phones as List<Phone>
+                if (email.isNullOrEmpty()) null else email,
+                name,
+                if (note.isNullOrEmpty()) null else note,
+                phones
             )
             viewModelScope.launch {
                 val token =
