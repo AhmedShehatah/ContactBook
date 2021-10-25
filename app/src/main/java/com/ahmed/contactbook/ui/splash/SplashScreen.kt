@@ -1,10 +1,8 @@
 package com.ahmed.contactbook.ui.splash
 
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.ahmed.contactbook.BaseFragment
@@ -24,21 +22,18 @@ class SplashScreen : BaseFragment<FragmentSplashScreenBinding>() {
 
     override fun setupOnViewCreated(view: View) {
         navController = Navigation.findNavController(view)
-
-        val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.bottom_animation)
-        binding.ivAppIcon.animation = animation
-        val token =
-            ContactBookPreferences().getString(SharedKeyEnum.TOKEN.toString())
-        Handler().postDelayed({
-
-            if (!token.isNullOrEmpty())
-                navController.navigate(R.id.action_splashScreen_to_homeFragment)
-            else
+        val token = ContactBookPreferences().getString(SharedKeyEnum.TOKEN.toString())
+        if (token.isNullOrEmpty()) {
+            binding.btnGetStarted.setOnClickListener {
                 navController.navigate(R.id.action_splashScreen_to_loginFragment)
 
-        }, 1000)
+            }
+        } else
+            navController.navigate(R.id.action_splashScreen_to_homeFragment)
+
 
     }
 
-
 }
+
+

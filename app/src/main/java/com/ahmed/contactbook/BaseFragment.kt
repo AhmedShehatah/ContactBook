@@ -50,7 +50,6 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        hideProgressDialog()
     }
 
 

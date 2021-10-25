@@ -2,4 +2,7 @@
 <resources>
     <dimen name="_30dp">30dp</dimen>
     <dimen name="_20sp">20sp</dimen>
+    <dimen name="_50dp">50dp</dimen>
+    <dimen name="_20dp">20dp</dimen>
+    <dimen name="_10dp">10dp</dimen>
 </resources>
