@@ -46,5 +46,8 @@ An android app stores contacts in an online database.
 
 ### Other Porjects
 [Sona3](https://github.com/islamarr/Sona3)
+[FastDo](https://github.com/Ahmedshehatah/Fast-Do)
+[SMART Family](https://github.com/Ahmedshehatah/SMART_Family)
+[The Feast Of The Goat](https://github.com/Ahmedshehatah/The_Feast_of_the_Goat)
 
 
