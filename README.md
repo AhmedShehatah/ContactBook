@@ -17,7 +17,9 @@ An android app stores contacts in an online database.
 - ViewModel - Store UI-related data that isn't destroyed on app rotations. Easily schedule asynchronous tasks for optimal execution.
 - Repository - A Module that handle data operations, You can consider repositories to be mediators between different data sources.
 - Third party and miscellaneous libraries.
+- 
  ...Retrofit - A simple library that is used for network transaction.
+ 
  ...Glide For image loading.
 - Kotlin Coroutines For managing background threads with simplified code and reducing needs for callbacks.
 
