@@ -9,14 +9,16 @@ An android app stores contacts in an online database.
 [logo]: https://developer.android.com/topic/libraries/architecture/images/final-architecture.png "MVVM"
 
 ## Libraries & Tools Used
-- Architecture - A collection of libraries that help you design robust, testable, and maintainable apps. Start with classes for managing your UI component lifecycle and handling data persistence.
-- Data Binding - Declaratively bind observable data to UI elements.
-- Lifecycles - Create a UI that automatically responds to lifecycle events.
-- LiveData - Build data objects that notify views when the underlying database changes.
-- Navigation - Handle everything needed for in-app navigation.
-- ViewModel - Store UI-related data that isn't destroyed on app rotations. Easily schedule asynchronous tasks for optimal execution.
-- Repository - A Module that handle data operations, You can consider repositories to be mediators between different data sources.
-- Kotlin Coroutines For managing background threads with simplified code and reducing needs for callbacks.
+- [Architecture](https://developer.android.com/jetpack/arch/) - A collection of libraries that help you design robust, testable, and maintainable apps. Start with classes for managing your UI component lifecycle and handling data persistence.
+- [Data Binding](https://developer.android.com/topic/libraries/data-binding/) - Declaratively bind observable data to UI elements.
+- [Lifecycles](https://developer.android.com/topic/libraries/architecture/lifecycle) - Create a UI that automatically responds to lifecycle events.
+- [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - Build data objects that notify views when the underlying database changes.
+- [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/) - Handle everything needed for in-app navigation.
+- [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Store UI-related data that isn't destroyed on app rotations. Easily schedule asynchronous tasks for optimal execution.
+- [Repository](https://developer.android.com/jetpack/guide#fetch-data) - A Module that handle data operations, You can consider repositories to be mediators between different data sources.
+- [Kotlin Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) For managing background threads with simplified code and reducing needs for callbacks.
+- [Retrofit](https://square.github.io/retrofit) - A simple library that is used for network transaction.
+- [Glide](https://bumptech.github.io/glide/) - For image Loading.
 
 ## Technical choices
 ### MVVM vs MVP
@@ -35,5 +37,14 @@ An android app stores contacts in an online database.
 ### Glide
 - Glide very effective for almost any case where you need to fetch, resize, cache and display a remote image.
 - Support round pictures, thumbnail and placeholder which I needed in this project.
+
+### What's Next
+- I wish I could have implemented caching data, but found problems that will take some time, so maybe complete it in the coming iteration.
+- Also the UI needs to be much fancier.
+- Unit tests are still need to be written.
+- I wish I could have extend it to Clean Architecture, maybe update it in the coming iteration.
+
+### Other Porjects
+[Sona3](https://github.com/islamarr/Sona3)
 
 
