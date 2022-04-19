@@ -3,7 +3,7 @@ An android app stores contacts in an online database.
 
 # Preview
 
-![0a33c2c2-aab4-4be9-aa58-db4443517eca](https://user-images.githubusercontent.com/35743597/164035114-4e3fd9c2-e754-4d2f-a6cd-15dfc2329c16.png | width=100)
+![0a33c2c2-aab4-4be9-aa58-db4443517eca](https://user-images.githubusercontent.com/35743597/164035114-4e3fd9c2-e754-4d2f-a6cd-15dfc2329c16.png)
 ![092d6f2c-b87a-469c-bdb3-070a8db24111](https://user-images.githubusercontent.com/35743597/164035119-8682e330-9a42-4df2-ae2f-c30d7d41a18c.png)
 ![698ae3ff-e0cb-41a4-a8c0-950714d286b8](https://user-images.githubusercontent.com/35743597/164035120-6eec3f21-b55b-4892-b685-c0bcef2f92ce.png)
 ![920bf32c-0b65-455a-869e-c71a18cfd14f](https://user-images.githubusercontent.com/35743597/164035125-35397597-677a-487b-b071-47b2d34d02d2.png)
