@@ -5,10 +5,8 @@ An android app stores contacts in an online database.
 <img src="https://user-images.githubusercontent.com/35743597/164035114-4e3fd9c2-e754-4d2f-a6cd-15dfc2329c16.png" width="300" height="600"> <img src="https://user-images.githubusercontent.com/35743597/164035119-8682e330-9a42-4df2-ae2f-c30d7d41a18c.png" width="300" height="600">
 <img src="https://user-images.githubusercontent.com/35743597/164035120-6eec3f21-b55b-4892-b685-c0bcef2f92ce.png" width="300" height="600">
 <img src="https://user-images.githubusercontent.com/35743597/164035125-35397597-677a-487b-b071-47b2d34d02d2.png" width="300" height="600">
-![920bf32c-0b65-455a-869e-c71a18cfd14f]()
-![af9ff103-2ea9-427f-83f0-3e9fafae1378](https://user-images.githubusercontent.com/35743597/164035128-be96cefd-f0c2-403c-bda4-666a417c81ac.png)
-![cea99ea3-ce47-4781-8515-70dea4c514ad](https://user-images.githubusercontent.com/35743597/164035132-a02fd174-46c6-4f02-9cb7-4a26b90d4ad3.png)
-
+<img src="https://user-images.githubusercontent.com/35743597/164035128-be96cefd-f0c2-403c-bda4-666a417c81ac.png" width="300" height="600">
+<img src="https://user-images.githubusercontent.com/35743597/164035132-a02fd174-46c6-4f02-9cb7-4a26b90d4ad3.png" width="300" height="600">
 
 ## Architecture pattern Used
 [MVVM](https://developer.android.com/jetpack/guide)
