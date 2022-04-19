@@ -2,7 +2,7 @@
 An android app stores contacts in an online database.
 
 # Preview
-![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
+![This is an image](https://drive.google.com/file/d/15KuGqiAEQy3au-hR49ZZ8x_wzlydmh2x/view?usp=sharing)
 
 ## Architecture pattern Used
 [MVVM](https://developer.android.com/jetpack/guide)
